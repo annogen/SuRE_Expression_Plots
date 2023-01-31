@@ -1,0 +1,11 @@
+name: cutadapt_ipcr
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - r
+dependencies:
+  - pip:
+    - "git+https://github.com/marcelm/cutadapt#egg=cutadapt"
+
+prefix: /data/home/james/miniconda3/envs/cutadapt_ipcr
