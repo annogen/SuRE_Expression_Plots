@@ -61,7 +61,7 @@ rule all:
         get_pngs(),
         get_combines_html()
 
-# We know the muation, subset the data
+# Subset the normalised SuRE counts files to only contain fragments with the mutation of interest
 rule subset_relavent_info_for_mut:
     input:
         what_file_to_load
@@ -75,7 +75,7 @@ rule subset_relavent_info_for_mut:
         '''
             csvcut -t -c {params.cols} <(zcat {input} )  | csvformat -T | awk -v OFS=\"\\t\" -v FS=\"\\t\" \'NR==1; NR > 1 {{ if($1 == {params.pos} ){{print $0}} }}\' > {output}
         '''
-
+# Plot and save as PNG for each mutation of interest 
 rule plot:
     input:
         lambda wildcards: expand(os.path.join(OUTDIR,wildcards.mut+".{lib}.txt"),lib = LIBS)
@@ -94,6 +94,7 @@ rule plot:
     conda: os.path.join(ENV_DIR,"expression_plot.yml")
     script: '{params.script}'
 
+# combine all pngs and put them in a HTML file for easy perusal
 rule combine_pngs:
     input:
         plotout = expand(os.path.join(OUTDIR,"{mut}.plot.png"), mut = MUTS),
