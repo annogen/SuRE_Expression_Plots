@@ -1,0 +1,29 @@
+OUTDIR : "/scratch/vartika/projects/BOAEC/Expression_plots"
+NORM_DIR : "/scratch/vartika/projects/BOAEC/INDELpipeline_Functional_Output/NORMALISE"
+
+NORM_CDNA: 
+    SuRE_BOAEC_1:
+      - ipcr.norm.sum.lib_X109_X110_X111_BOAEC-D1_cDNA_103_3_ATCACG_BioRep1_trimmed_table.txt.gz
+      - ipcr.norm.sum.lib_X109_X110_X112_BOAEC-D2_cDNA_103_4_CGATGT_BioRep1_trimmed_table.txt.gz
+    SuRE_BOAEC_2:
+      - ipcr.norm.sum.lib_X109_X110_X111_BOAEC-D1_cDNA_103_3_ATCACG_BioRep1_trimmed_table.txt.gz
+      - ipcr.norm.sum.lib_X109_X110_X112_BOAEC-D2_cDNA_103_4_CGATGT_BioRep1_trimmed_table.txt.gz
+
+SHOWNAME:
+  SuRE_BOAEC_1: "Bos-Taurus"
+  SuRE_BOAEC_2: "Bos-Indicus"
+
+#  "/scratch/vartika/GitHub/HLHS_Reports/data/exp.plot.tsv"
+SNPS:
+  SNP_FILE :
+  SNP_LIST:
+    - "28_45870598"
+
+# make sure SNPabspos is first here
+COLNAMES:
+  SNPabspos: SNP_ABS_POS_hg19
+  chr: chrom
+  start: start_hg19
+  end: end_hg19
+  lib: Lib
+  SNPVAR : SNP_VAR
