@@ -1,12 +1,10 @@
-# The idea is to make the process of making the expression plots fast.
-# The idea is to make the process of making the expression plots fast.
-# I would need the :
-#1. Location of the Normalised files
-#2. Libraries
-#3. SNP postion colname
-#4. Chr colname
-#5. List of locations as chr:pos to be plotted
-#6. The column name to be used for the expression score - so the normalised expression score for each replicate
+# AUTHOR / DATE
+# Vartika Bisht; January 31, 2023
+
+## Plot expression plots and statistics for the given region of interest using processed SuRE data.
+## plot.R : plots expression plots for a given mutation and saves it as a PNG
+## html.Rmd : Combines all PNG plots from plot.R and puts it into a HTML
+
 
 import os
 import pandas as pd
@@ -32,11 +30,17 @@ def what_file_to_load(wildcards):
     chr = wildcards.snp.split("_")[0]
     return( os.path.join(NORM_DIR,wildcards.lib,"normalise."+ wildcards.lib + "." + chr +".txt.gz") )
 
+
+def get_pngs():
+    return(expand(os.path.join(OUTDIR,"{snp}.plot.png"), snp = SNPS) + expand(os.path.join(OUTDIR,"{snp}.stats.png"), snp = SNPS))
+
+def get_combines_html():
+    return(os.path.join(OUTDIR,"Final.html"))
+
 rule all:
     input:
-       expand(os.path.join(OUTDIR,"{snp}.plot.png"), snp = SNPS),
-       expand(os.path.join(OUTDIR,"{snp}.stats.png"), snp = SNPS),
-       os.path.join(OUTDIR,"Final.html")   
+        get_pngs(),
+        get_combines_html()
 
 # We know the muation, subset the data
 rule subset_relavent_info_for_mut:
