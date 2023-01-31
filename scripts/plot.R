@@ -10,7 +10,7 @@ library(ggExtra)
 # Input data
 cols = snakemake@params[["cols"]]
 libs = snakemake@params[["libs"]]
-snp = snakemake@params[["snp"]]
+mut = snakemake@params[["mut"]]
 libname = snakemake@params[["libname"]]
 jit = as.numeric(snakemake@params[["jitter"]])
 zero.exp.offset = as.numeric(snakemake@params[["zero_exp_offset"]])
@@ -26,15 +26,15 @@ reform = function(f,cols,libname){
   colnames(result_df) = names(cols)
   if(dim(df)[1] != 0){
     result_df$ipcr.norm.sum = rowSums(df[,.SD, .SDcols = grep("ipcr.norm.sum",colnames(df))])/2
-    result_df$Allele = df[,.SD,.SDcols = as.character(cols["SNPVAR"])]
+    result_df$Allele = df[,.SD,.SDcols = as.character(cols["MUTVAR"])]
     result_df = result_df[result_df$Allele %in% c(0,1),]
     result_df$Allele = ifelse(result_df$Allele == 0, "Reference Allele" , "Alternate Allele")
     result_df$lib = libname[unique(result_df$lib)] }
   return(result_df)}
 
 # Stats to be shown with the plot 
-get_stats = function(snp,file.list,statsout){ 
-  SNP = paste0("Position : ", strsplit(snp,"_")[[1]][1],":",as.numeric(strsplit(snp,"_")[[1]][2]))
+get_stats = function(mut,file.list,statsout){ 
+  MUT = paste0("Position : ", strsplit(mut,"_")[[1]][1],":",as.numeric(strsplit(mut,"_")[[1]][2]))
   
   sp.file.list = split(file.list,list(file.list$Allele,file.list$lib))
   if(length(unique(file.list$lib))>1){
@@ -70,7 +70,7 @@ get_stats = function(snp,file.list,statsout){
   
   
   s = kable(stats[c("Allele","Value")],
-            caption = SNP,
+            caption = MUT,
             col.names = c("","")) %>% 
     kable_material(full_width = F) %>%
     pack_rows(index = table(fct_inorder(stats$Statistic))) %>%
@@ -80,8 +80,8 @@ get_stats = function(snp,file.list,statsout){
 
   return(s)}
 
-get_plot = function(snp,file.list,offset,zero.exp.offset){
-  SNP = paste0("Position : ", strsplit(snp,"_")[[1]][1],":",as.numeric(strsplit(snp,"_")[[1]][2]))
+get_plot = function(mut,file.list,offset,zero.exp.offset){
+  MUT = paste0("Position : ", strsplit(mut,"_")[[1]][1],":",as.numeric(strsplit(mut,"_")[[1]][2]))
   ymin = offset - zero.exp.offset
   ymax = ceiling(max(file.list$ipcr.norm.sum.jitter))
   
@@ -90,8 +90,8 @@ get_plot = function(snp,file.list,offset,zero.exp.offset){
   g = ggplot(file.list, aes(x = start, xend = end , y  = ipcr.norm.sum.jitter , yend = ipcr.norm.sum.jitter, colour = as.factor(Allele) ) ) + 
     geom_point(size = 0.01) + 
     geom_segment(aes(linetype = lib )) + 
-    geom_vline(xintercept = as.numeric(strsplit(snp,"_")[[1]][2])) + 
-    xlab(SNP) +
+    geom_vline(xintercept = as.numeric(strsplit(mut,"_")[[1]][2])) + 
+    xlab(MUT) +
     ylab("Normalised Expression") + 
     scale_color_manual(name="",values = group.colors ) + 
     scale_linetype_discrete(name="") +
@@ -103,7 +103,7 @@ get_plot = function(snp,file.list,offset,zero.exp.offset){
           legend.position = "bottom",
           plot.title = element_text(hjust = 0.5),
           plot.subtitle = element_text(hjust = 0.5)) + 
-    ggtitle(label =  paste0("Normalised Expression plot for Chr",strsplit(snp,"_")[[1]][1],":",as.numeric(strsplit(snp,"_")[[1]][2])),
+    ggtitle(label =  paste0("Normalised Expression plot for Chr",strsplit(mut,"_")[[1]][1],":",as.numeric(strsplit(mut,"_")[[1]][2])),
             subtitle = "Fragment Level View")
   
   exp_vp = ggplot(file.list,aes(x = Allele, y = (ipcr.norm.sum+1), colour = Allele)) + geom_violin() +
@@ -160,9 +160,9 @@ offset =  abs(round(min(file.list$ipcr.norm.sum.jitter))) + 1
 file.list$ipcr.norm.sum.jitter = file.list$ipcr.norm.sum.jitter + offset
 
 # save 
-get_stats(snp,file.list,statsout)
+get_stats(mut,file.list,statsout)
 png(filename = plotout)
-get_plot(snp,file.list,offset,zero.exp.offset) 
+get_plot(mut,file.list,offset,zero.exp.offset) 
 dev.off()
 
 zero.exp.offset = 1

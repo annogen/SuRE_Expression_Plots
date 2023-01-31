@@ -14,16 +14,16 @@ SHOWNAME:
   SuRE_BOAEC_2: "Bos-Indicus"
 
 #  "/scratch/vartika/GitHub/HLHS_Reports/data/exp.plot.tsv"
-SNPS:
-  SNP_FILE :
-  SNP_LIST:
+MUTS:
+  MUT_FILE :
+  MUT_LIST:
     - "28_45870598"
 
-# make sure SNPabspos is first here
+# make sure MUTabspos is first here
 COLNAMES:
-  SNPabspos: SNP_ABS_POS_hg19
+  MUTabspos: SNP_ABS_POS_hg19
   chr: chrom
   start: start_hg19
   end: end_hg19
   lib: Lib
-  SNPVAR : SNP_VAR
+  MUTVAR : SNP_VAR
