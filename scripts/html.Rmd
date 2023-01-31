@@ -1,0 +1,42 @@
+---
+title: "Final Plot"
+output:
+  html_document:
+    theme: sandstone
+    highlight: tango
+---
+
+<style type="text/css">
+.main-container {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+```{r 1, include=FALSE, message = FALSE, warnings = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r 2, include=FALSE, message = FALSE, warnings = FALSE}
+library(png)
+library(grid)
+library(gridExtra)
+```
+
+```{r 3, include=FALSE, message = FALSE, warnings = FALSE}
+plotout = snakemake@input[["plotout"]]
+statsout = snakemake@input[["statsout"]]
+len = length(plotout)
+```
+
+```{r 4, echo=FALSE, message = FALSE,out.width = '90%', fig.align = "center" , warnings = FALSE}
+plot <- lapply(as.list(plotout), png::readPNG)
+stat <- lapply(as.list(statsout), png::readPNG)
+gplot <- lapply(plot, grid::rasterGrob)
+gstat <- lapply(stat, grid::rasterGrob)
+fplot = c(gplot = list(gplot),
+           gstat = list(gstat))
+mapply(FUN = function(x,y) gridExtra::grid.arrange(x,y,nrow = 1) ,gplot, gstat)
+```
+
