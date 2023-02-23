@@ -1,29 +1,26 @@
 # SuRE Expression Plots
 This repository has scirpts that will help you plot expression plots for given processed SuRE data.
-![try](https://user-images.githubusercontent.com/53393505/215805598-68d66a3f-5e98-4c0e-bdd0-02881f27c0ce.png)
+
+![chr12_128797634_plot](https://user-images.githubusercontent.com/53393505/220905951-da3884bf-e9f8-4090-a2a3-529b590948dd.png)
 
 ## Sub-directories
 * envs - Directory to store all conda environments required to run the pipeline. 
 * scripts - Directory to store all associated scripts.
-* data - Directory to store meta-data tsv sheets, sample names as text files etc.  
 
-## Specifying positions of interest
-Specify the SNPs of interest in expression_plots.yml as chr_pos or give a SNP_FILE of interest with posiitons of of the format chr_pos in new line.
-
-## Limitations:
-Only works for one cell line at a time
-
-## Reuired Entries in the YAML
-* OUTDIR - output directory
-* NORM_DIR - directory with normalised SuRE Counts file
-* NORM_CDNA - names of the ipcr normalised and scaled cDNA columns for each librray
-* SHOWNAME - names for the libraries that you would like to be displayed on the plots
-* SNPS - input position of interests as:
-    * SNP_FILE - a file 
-    * SNP_LIST - a list in the yaml
-* COLNAMES - names of column in your dataframe corresponding to :
-    * SNPabspos - absolute position of the mutation
-    * start - start of the fragment
-    * end - end of the fragment
-    * lib - library name
-    * SNPVAR - SNP VAR value assigned by the pipeline. eg: 0 - REF, 1 - ALT etc.
+## Using the bash script for plotting
+```
+bash plot.bash [OPTIONS]
+OPTIONS:
+  -s: column name for position of SNPs in the normlised file
+  -v: column name for variable defining the mutation type (haplotype 1, haplotype 2, unreas etc) in the normlised file
+  -st: column name for start of a fragment in the normlised file
+  -en: column name for end of a fragment in the normlised file
+  -l: column name for library name in the normlised file
+  -t: temp directory
+  -C: Chromosome of interest [required]
+  -p: Position of interest [required]
+  -n: gzipped normalised file [required]
+  -o: Output directory [required]
+  -R: R script for plotting [required]
+  -h: print this message
+```
