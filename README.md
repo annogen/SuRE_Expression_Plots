@@ -7,7 +7,7 @@ This repository has scirpts that will help you plot expression plots for given p
 * envs - Directory to store all conda environments required to run the pipeline. 
 * scripts - Directory to store all associated scripts.
 
-## Using the bash script for plotting
+## Using bash script for plotting all fragments overlapping the mutation of interest.
 ```
 bash plot.bash [OPTIONS]
 OPTIONS:
@@ -23,4 +23,31 @@ OPTIONS:
   -o: Output directory [required]
   -R: R script for plotting [required]
   -h: print this message
+```
+### Using R script within the bash script to make the plots
+```
+Usage: Rscript plot.R [options]
+
+Options:
+        -f NORMFILE, --normfile=NORMFILE
+                Path to the combined and subsetted normalised file [required]
+
+        -o OUTDIR, --outdir=OUTDIR
+                Output directory [required]
+
+        -p POSITION, --position=POSITION
+                Position of the mutation of interest [required]
+
+        -c CHROMOSOME, --chromosome=CHROMOSOME
+                Chromosome of interest [required]
+
+        -j JITTER, --jitter=JITTER
+                itter between the fragments
+
+        -z ZEROOFFSET, --zerooffset=ZEROOFFSET
+                Ofset for fragments with zero expression, so that we can look at them seperately.
+
+        -h, --help
+                Show this help message and exit
+
 ```
