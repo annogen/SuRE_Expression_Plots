@@ -24,7 +24,7 @@ OPTIONS:
   -R: R script for plotting [required]
   -h: print this message
 ```
-### Using R script within the bash script to make the plots
+### Using R script within the bash script to make the plots https://github.com/annogen/SuRE_Expression_Plots/blob/main/scripts/plot.R
 ```
 Usage: Rscript plot.R [options]
 
