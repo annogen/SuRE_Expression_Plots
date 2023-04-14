@@ -2,10 +2,20 @@
 # AUTHOR / DATE
 # Vartika Bisht; January 31, 2023
 
-## Bash scipt for plotting fragment overlapping mutation of interest.
+## plot.bash : Bash script for plotting fragment overlapping mutation of interest.
+## This scripts takes a tab seperated file, chromosome name for mutation of interest, position of the mutation of interest and relavent column names as input.
 
-# Example Bash command
-# bash plot.bash -C chr -p pos -n "input.txt.gz" -o "outdir" -R "REPO/scripts/plot.R"
+## Input File Format:
+## Tab seperated file
+## Column names as the first row of the file
+## Colnames specified in the -c flag of TotalCounts.sh must exist is all files specified under -f
+
+## Output File Format:
+## Tab seperated file
+## Column names as the first row of the file
+## png file for expression plot and associated table
+
+## bash plot.bash -C chr -p pos -n "input.txt.gz" -o "outdir" -R "REPO/scripts/plot.R"
 
 # PARSE OPTIONS
 # Reset in case getopts has been used previously in the shell.
@@ -24,10 +34,10 @@ USAGE=
 usage() {
   echo >&2 "usage: ${SCRIPTNAME} -s:v:st:en:l:t:C:p:n:o:R:"
   echo >&2 "OPTIONS:"
-  echo >&2 "  -s: column name for position of SNPs in the normlised file"
-  echo >&2 "  -v: column name for variable defining the mutation type (REF=0, ALT=1, ALT=2 etc) in the normlised file"
-  echo >&2 "  -st: column name for start of a fragment in the normlised file"
-  echo >&2 "  -en: column name for end of a fragment in the normlised file"  
+  echo >&2 "  -s: column name for position of SNPs in the normlised file [required]"
+  echo >&2 "  -v: column name for variable defining the mutation type (REF=0, ALT=1, ALT=2 etc) in the normlised file [required]"
+  echo >&2 "  -st: column name for start of a fragment in the normlised file [required]"
+  echo >&2 "  -en: column name for end of a fragment in the normlised file [required]"  
   echo >&2 "  -l: column name for library name in the normlised file"  
   echo >&2 "  -t: temp directory"  
   echo >&2 "  -C: Chromosome of interest [required]"
