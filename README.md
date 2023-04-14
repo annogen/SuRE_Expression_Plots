@@ -6,6 +6,9 @@ This repository has scirpts that will help you plot expression plots for given p
 * scripts - Directory to store all associated scripts.
 
 ### Using bash script for plotting all fragments overlapping the mutation of interest.
+
+The bash script first subsets tab seperated file to contain fragments overlapping the mutation of interest. The resulting table is saved as a tab seperated file. Next, the R script plots the expression plots and table as png and saves it in the output directory provided. The output file is of the format CHR_POS_plot.png and CHR_POS_stats.png
+
 ```
 bash plot.bash [OPTIONS]
 OPTIONS:
