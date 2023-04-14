@@ -1,11 +1,11 @@
-# SuRE Expression Plots
+## SuRE Expression Plots
 This repository has scirpts that will help you plot expression plots for given processed SuRE data.
 
-## Sub-directories
+### Sub-directories
 * envs - Directory to store all conda environments required to run the pipeline. 
 * scripts - Directory to store all associated scripts.
 
-## Using bash script for plotting all fragments overlapping the mutation of interest.
+### Using bash script for plotting all fragments overlapping the mutation of interest.
 ```
 bash plot.bash [OPTIONS]
 OPTIONS:
