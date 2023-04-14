@@ -15,10 +15,6 @@ SCRIPTNAME="plot.bash"
 
 
 # Defaults
-snpposcol="SNP_ABS_POS_hg19"
-snpvarcol="SNP_VAR"
-startcol="start_hg19"
-endcol="end_hg19"
 libcol="Lib"
 bccol="BC"
 TMP=$TMP
