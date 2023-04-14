@@ -5,7 +5,7 @@
 ## Bash scipt for plotting fragment overlapping mutation of interest.
 
 # Example Bash command
-# bash plot.bash -C chr12 -p 128797634 -n "/HDD/data2/scratch/vartika/projects/VB230109_HLHS_combined/Combination_of_1/SuRE_X68/NORMALISE/SuRE_X68/normalise.SuRE_X68.chr12.txt.gz /HDD/data2/scratch/vartika/projects/VB230109_HLHS_combined/Combination_of_1/SuRE_X59/NORMALISE/SuRE_X59/normalise.SuRE_X59.chr12.txt.gz /HDD/data2/scratch/vartika/projects/VB230109_HLHS_combined/Combination_of_1/SuRE_X67/NORMALISE/SuRE_X67/normalise.SuRE_X67.chr12.txt.gz" -o "/HDD/data2/scratch/vartika/projects/VB230109_HLHS_combined/Combination_of_3/X68_X59_X67/Expression_plot" -R "/HDD/data2/scratch/vartika/GitHub/SuRE_Expression_Plots/scripts/plot.R"
+# bash plot.bash -C chr -p pos -n "input.txt.gz" -o "outdir" -R "REPO/scripts/plot.R"
 
 # PARSE OPTIONS
 # Reset in case getopts has been used previously in the shell.
