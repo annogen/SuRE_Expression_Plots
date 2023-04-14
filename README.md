@@ -1,8 +1,6 @@
 # SuRE Expression Plots
 This repository has scirpts that will help you plot expression plots for given processed SuRE data.
 
-![chr12_128797634_plot](https://user-images.githubusercontent.com/53393505/220905951-da3884bf-e9f8-4090-a2a3-529b590948dd.png)
-
 ## Sub-directories
 * envs - Directory to store all conda environments required to run the pipeline. 
 * scripts - Directory to store all associated scripts.
