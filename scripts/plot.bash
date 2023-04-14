@@ -29,7 +29,7 @@ usage() {
   echo >&2 "usage: ${SCRIPTNAME} -s:v:st:en:l:t:C:p:n:o:R:"
   echo >&2 "OPTIONS:"
   echo >&2 "  -s: column name for position of SNPs in the normlised file"
-  echo >&2 "  -v: column name for variable defining the mutation type (haplotype 1, haplotype 2, unreas etc) in the normlised file"
+  echo >&2 "  -v: column name for variable defining the mutation type (REF=0, ALT=1, ALT=2 etc) in the normlised file"
   echo >&2 "  -st: column name for start of a fragment in the normlised file"
   echo >&2 "  -en: column name for end of a fragment in the normlised file"  
   echo >&2 "  -l: column name for library name in the normlised file"  
