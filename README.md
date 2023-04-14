@@ -10,7 +10,7 @@ This repository has scirpts that will help you plot expression plots for given p
 bash plot.bash [OPTIONS]
 OPTIONS:
   -s: column name for position of SNPs in the normlised file
-  -v: column name for variable defining the mutation type (haplotype 1, haplotype 2, unreas etc) in the normlised file
+  -v: column name for variable defining the mutation type (REF=0, ALT=1, ALT=2 etc) in the normlised file
   -st: column name for start of a fragment in the normlised file
   -en: column name for end of a fragment in the normlised file
   -l: column name for library name in the normlised file
