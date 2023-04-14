@@ -4,6 +4,9 @@
 
 ## plot.bash : Bash script for plotting fragment overlapping mutation of interest.
 ## This scripts takes a tab seperated file, chromosome name for mutation of interest, position of the mutation of interest and relavent column names as input.
+## The resulting table is saved as a tab seperated file. 
+## Next, the R script plots the expression plots and table as png and saves it in the output directory provided. 
+## The output file is of the format CHR_POS_plot.png and CHR_POS_stats.png
 
 ## Input File Format:
 ## Tab seperated file
