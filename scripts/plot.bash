@@ -18,6 +18,10 @@ SCRIPTNAME="plot.bash"
 libcol="Lib"
 bccol="BC"
 TMP=$TMP
+snpposcol="SNP_ABS_POS_hg19"
+snpvarcol="SNP_VAR"
+startcol="start_hg19"
+endcol="end_hg19"
 
 # Usage 
 USAGE=
@@ -114,8 +118,10 @@ do
   
   # Add 
   paste -d"\t" <(zcat $norm | tail -n +2) <(cut -d$'\t' -f $normcdnacol <(zcat $norm | tail -n +2) | awk -v OFS="\t" -v FS="\t" '{sum = 0; for (i = 1; i <= NF; i++) sum += $i; sum /= NF; print sum}' - ) > $TMP/tmp.norm.txt
-  
-  awk -v OFS="\t" -v FS="\t" -v position=$position -v snpposcolnum=$snpposcolnum -v snpvarcolnum=$snpvarcolnum -v startcolnum=$startcolnum -v endcolnum=$endcolnum -v libcolnum=$libcolnum -v bccolnum=$bccolnum '{if($snpposcolnum == position ){print $bccolnum"\t"$snpposcolnum"\t"$startcolnum"\t"$endcolnum"\t"$snpvarcolnum"\t"$libcolnum"\t"$NF }}' $TMP/tmp.norm.txt | sed '1ibc\tposition\tstart\tend\tsnpvar\tlibrary\texpression' - | gzip -c > $outdir/${position}.$(basename $norm ) ;
+
+  fname=${position}.$(basename $norm )
+  echo ${fname}
+  awk -vOFS='\t' -vFS='\t' -vposition="$position" -vsnpposcolnum="$snpposcolnum" -vsnpvarcolnum="$snpvarcolnum" -vstartcolnum="$startcolnum" -vendcolnum="$endcolnum" -vlibcolnum="$libcolnum" -vbccolnum="$bccolnum" '{if($snpposcolnum == position ){print $bccolnum"\t"$snpposcolnum"\t"$startcolnum"\t"$endcolnum"\t"$snpvarcolnum"\t"$libcolnum"\t"$NF }}' $TMP/tmp.norm.txt | sed '1ibc\tposition\tstart\tend\tsnpvar\tlibrary\texpression' - | gzip -c > ${outdir}/${fname} ;
 
 done
 
