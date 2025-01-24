@@ -119,13 +119,14 @@ get_plot = function(chr,pos,snpvardf,offset,zero.exp.offset){
   # assign colours for each allele
   group.colors = c("Alternate" = "salmon", "Reference" = "darkturquoise")
   
+  # recode_factor(snpvardf$library, "SuRE_X38" = "CHD1", "SuRE_X57" = "CHD2" , "SuRE_X59" = "CHD3" , "SuRE_X67" = "CHD4" , "SuRE_X68" = "CHD5" , "SuRE_X86" = "CHD6")
   # Plot the fragment level expression plot
   g = ggplot(snpvardf, aes(x = start, xend = end , y  = expression.jitter , yend = expression.jitter, colour = as.factor(allele) ) ) + 
     geom_point(size = 0.01) + 
     geom_segment(aes(linetype = library )) + 
     geom_vline(xintercept = pos) + 
     xlab(MUT) +
-    ylab("Normalised Expression") + 
+    ylab("SuRE Expression") + 
     scale_color_manual(name="",values = group.colors ) + 
     scale_linetype_discrete(name="") +
     theme_classic() +
@@ -134,22 +135,29 @@ get_plot = function(chr,pos,snpvardf,offset,zero.exp.offset){
                        breaks = c(ymin, round(unique(10^(seq(log10(offset+1),log10(ymax), by = 0.4)))) ) , 
                        labels = c("0", round(unique(10^(seq(log10(offset+1),log10(ymax), by = 0.4))) - offset ) )) +
     theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1),
-          legend.position = "top",
+          legend.position = "left",
           plot.title = element_text(hjust = 0.5),
-          plot.subtitle = element_text(hjust = 0.5)) + 
+          plot.subtitle = element_text(hjust = 0.5),
+          axis.text=element_text(size=15), 
+          legend.text = element_text(size=15),
+          axis.title=element_text(size=15)) + 
     ggtitle(label =  paste0("Normalised Expression plot for ",chr,":",pos),
             subtitle = "Fragment Level View")
   
   # Violin plot for refrence and alternate allel. This plot will help us see the difference between REF AND ALT when comparnig raQTLs to other mutations
   exp_vp = ggplot(snpvardf,aes(x = allele, y = (expression+1), colour = allele)) + geom_violin() +
     geom_sina() +
+    xlab(MUT) +
     theme_classic() + 
     theme(panel.border = element_rect(colour = "black", fill=NA, linewidth=1),
           legend.position = "none",
           plot.title = element_text(hjust = 0.5),
-          plot.subtitle = element_text(hjust = 0.5)) + 
+          plot.subtitle = element_text(hjust = 0.5),
+          axis.text=element_text(size=15), 
+          legend.text = element_text(size=15),
+          axis.title=element_text(size=15)) + 
     scale_colour_manual(name="",values = group.colors ) + 
-    ylab("Normalised Expression") + xlab("")  +
+    ylab("SuRE Expression") +
     scale_y_continuous(trans='log10',
                        breaks = c(1,unique(round(10^(seq(log10(offset+1),log10(ymax), by = 0.4)))) - offset + 1) ,
                        labels = c(0,unique(round(10^(seq(log10(offset+1),log10(ymax), by = 0.4)))) - offset)  ) +
